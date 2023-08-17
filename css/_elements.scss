@@ -1,0 +1,215 @@
+.button {
+    min-height: var(--action-height);
+    height: 100%;
+
+    padding: 0 20px;
+    margin: 0 5px;
+
+    background-color: $color--body-background;
+    color: $color--button-background;
+
+    border: 2px solid lighten($color--body-background, 50%);
+
+    font-weight: $fontWeight--semi-bold;
+
+    border-radius: $button--radius;
+
+    cursor: pointer;
+
+    transition: $global--transition;
+
+    &.accept,
+    &.delete {
+        border: 0;
+    }
+
+    &.accept {
+        background-color: $color--succes;
+    }
+
+    &.delete {
+        background-color: $color--error;
+    }
+
+    &:hover {
+        box-shadow: inset 0 0 100px transparentize($color--body-background, .75);
+    }
+    &.link{
+        @include center;
+    }
+}
+
+*:disabled {
+    opacity: .5;
+}
+
+.moving {
+    background-color: red !important;
+}
+
+.target {
+    background-color: blue !important;
+}
+
+.img {
+    opacity: .75;
+
+    &.cover {
+        max-width: 100%!important;
+        width: 100%!important;
+        height: 100%;
+
+
+        object-fit: cover;
+    }
+
+    @include devices(xl) {
+
+    }
+}
+
+.text {
+    width: 100%;
+
+    font-size: 35px;
+
+    color: rgb(0, 0, 0);
+
+    @include devices(xl) {
+        text-align: center;
+    }
+}
+
+.link{
+
+}
+
+.x-top {
+    align-items: flex-start !important;
+}
+
+.x-center {
+    align-items: center !important;
+}
+
+.x-bottom {
+    align-items: flex-end !important;
+}
+
+.y-top {
+    justify-content: flex-start !important;
+}
+
+.y-center {
+    justify-content: center !important;
+}
+
+.y-bottom {
+    justify-content: flex-end !important;
+}
+
+.flags {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    padding: 0 20px;
+    margin: 0 5px;
+
+    background-color: $color--body-background;
+    color: $color--button-background;
+
+    border: 2px solid lighten($color--body-background, 50%);
+
+    font-weight: $fontWeight--semi-bold;
+
+    border-radius: $button--radius;
+
+    cursor: pointer;
+
+    transition: $global--transition;
+}
+
+.leftToright {
+    @include devices(xl) {
+        flex-direction: row !important;
+    }
+
+    position: relative;
+
+}
+
+.topTobottom {
+    @include devices(xl) {
+        flex-direction: column !important;
+    }
+
+    position: relative;
+
+}
+
+.bottomTotop {
+    @include devices(xl) {
+        flex-direction: column-reverse !important;
+    }
+
+    position: relative;
+
+}
+
+.t-left {
+    text-align: left;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.t-right {
+    text-align: right;
+}
+
+.bgl {
+    background-position: left 0 !important;
+}
+
+.bgr {
+    background-position: right 0 !important;
+}
+
+.bgc {
+    background-position: center 0 !important;
+}
+
+.ms {
+    @include devices(xl) {
+        font-size: 12px !important;
+    }
+}
+
+.mm {
+    @include devices(xl) {
+        font-size: 23px !important;
+    }
+}
+
+.mb {
+    @include devices(xl) {
+        font-size: 35px !important;
+    }
+}
+
+.fa-solid {
+    &.ms {
+        font-size: 12px !important;
+    }
+
+    &.mm {
+        font-size: 18px !important;
+    }
+
+    &.mb {
+        font-size: 25px !important;
+    }
+}

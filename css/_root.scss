@@ -1,0 +1,62 @@
+:root, :before, :after {
+    --toolbar-height: 60px;
+    --action-height: 60px;
+    
+}
+
+@include devices(xxl) {
+    :root {
+        --navbar-gap: 20px;
+    }
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-display: swap;
+    outline: none;
+    box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+html,
+body {
+    @include center;
+
+    min-height: 100vh;
+    counter-reset: section;
+    overflow-x: hidden;
+
+    font-size: 16px;
+
+    @include devices(xxl){
+        font-size: 13px;
+    }
+
+    @include devices(xl){
+        font-size: 10px;
+    }
+    @include devices(md){
+        font-size: 7px;
+    }
+}
+
+body {
+    font-family: $font--body;
+    background-color: $color--body-background;
+    color: $color--body-foreground;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    color: $color--body-foreground;
+}

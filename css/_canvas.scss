@@ -1,0 +1,510 @@
+.standalone-grid{
+    @include flex(column, flex-start, flex-start);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 center;
+
+    .row, .col{
+        outline: 0!important ;
+    }
+}
+
+.grid, .standalone-grid {
+    @include flex(column, flex-start, flex-start);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 0;
+
+    width: 100%;
+    height: 100%;
+
+    .selectable {
+        box-sizing: outline;
+        position: relative;
+        background-color: transparentize(#000, .9);
+        // background-size: 10px 10px;
+        // background-image: repeating-linear-gradient(45deg, #ff000000 0, #ff000000 1px, #ff000000 0, rgba(56, 56, 56, 0.51) 50%);
+
+        &img{
+            &:hover{
+                opacity: 1;
+                background-color: red;
+            }
+        }
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: transparentize(lighten($color--succes, 20%), .7)!important;
+            outline: 2px solid $color--succes;
+            // box-shadow: inset 0 0 200px 200px transparentize($color--body-background, .80);
+        }
+
+        &.active {
+            background-color: transparentize(lighten($color--succes, 20%), .7)!important;
+            outline: 2px dashed $color--succes;
+            // box-shadow: inset 0 0 200px 200px transparentize($color--succes, .80);
+        }
+    }
+
+    .row {
+        @include flex(row, flex-start, flex-start);
+
+        overflow: hidden;
+
+        position: relative;
+
+        z-index: 10;
+
+        width: 100%;
+        height: 100%;
+
+        outline: 1px dashed rgba(158, 158, 158, 0.7);
+
+        transition: $global--transition;
+
+        .col {
+            @include flex(column, flex-start, flex-start);
+
+            position: relative;
+
+            overflow: hidden;
+
+            z-index: 20;
+
+            width: 100%;
+            height: 100%;
+
+            padding: 20px;
+
+            outline: 1px dashed rgba(158, 158, 158, 0.7);
+
+            transition: $global--transition;
+        }
+
+    }
+}
+
+.canvas {
+    @include center;
+
+    position: relative;
+
+    width: calc(100vw - 50px);
+    height: calc(100vh - 50px);
+
+    .toolbar,
+    .actions {
+        position: absolute;
+
+        z-index: 100;
+    }
+
+    .toolbar {
+        @include flex(row, space-between);
+
+        width: 100%;
+        height: var(--toolbar-height);
+
+        top: 0;
+        left: 0;
+
+        .padding{
+            @include flex(row!important, flex-start!important, flex-start!important, wrap!important);
+
+            gap: 0!important;
+
+            width: 200px!important;
+
+            span{
+                width: 100%!important;
+            }
+
+            i{
+                @include center;
+
+                width: 20%;
+            }
+
+            input{
+                width: 80%!important;
+                height: calc(100% / 3)!important;
+            }
+        }
+
+        .arrows {
+            @include flex(row, center, center, wrap);
+
+            gap: 0;
+
+            width: 60px;
+            height: 60px;
+
+            margin: 0 5px;
+
+            border-radius: $button--radius;
+
+            overflow: hidden;
+
+            button {
+                @include center;
+
+                margin: 0;
+                padding: 0;
+
+                width: calc(100% / 3);
+                height: calc(100% / 3);
+
+                min-height: inherit;
+
+                border-radius: 0;
+
+                i {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        li[data-target] {
+            position: relative;
+            opacity: .5;
+
+            &:hover {
+                span {
+                    bottom: -10px;
+                    opacity: 1;
+                    pointer-events: all;
+                }
+            }
+
+            span {
+                position: absolute;
+
+                z-index: 1000 !important;
+
+                bottom: 0;
+                left: 50%;
+
+                transform: translate(-50%, 100%);
+
+                padding: 10px;
+
+                background-color: #000;
+
+                border-radius: $button--radius;
+
+                opacity: 0;
+                pointer-events: none;
+
+                font-size: 12px;
+                text-align: center;
+
+                transition: $global--transition;
+
+                &::before {
+                    content: "";
+
+                    position: absolute;
+
+                    top: 0;
+                    left: 50%;
+
+                    transform: translate(-50%, -100%);
+
+                    background-color: transparent;
+
+                    width: 0;
+                    height: 0;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+
+                    border-bottom: 5px solid #000;
+                }
+            }
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .tabs {
+            display: none;
+
+            &.active {
+                @include flex(row, flex-end);
+            }
+
+            input {
+                width: 100px;
+                height: var(--toolbar-height);
+
+                padding: 0 5px;
+                margin: 0 5px;
+
+                background-color: $color--body-background;
+                color: $color--button-background;
+
+                border: 2px solid lighten($color--body-background, 50%);
+
+                font-weight: $fontWeight--semi-bold;
+
+                border-radius: $button--radius;
+
+                cursor: pointer;
+
+                transition: $global--transition;
+            }
+        }
+
+        ul {
+            @include flex();
+
+
+            height: 100%;
+
+            list-style: none;
+
+            li {
+                position: relative;
+
+                height: 100%;
+
+                &:hover {
+                    span {
+                        bottom: -10px;
+                        opacity: 1;
+                        pointer-events: all;
+                    }
+                }
+
+                .tooltip {
+                    position: absolute;
+
+                    z-index: 1000 !important;
+
+                    bottom: 0;
+                    left: 50%;
+
+                    transform: translate(-50%, 100%);
+
+                    padding: 10px;
+
+                    background-color: #000;
+
+                    border-radius: $button--radius;
+
+                    opacity: 0;
+                    pointer-events: none;
+
+                    font-size: 12px;
+                    text-align: center;
+
+                    transition: $global--transition;
+
+                    &::before {
+                        content: "";
+
+                        position: absolute;
+
+                        top: 0;
+                        left: 50%;
+
+                        transform: translate(-50%, -100%);
+
+                        background-color: transparent;
+
+                        width: 0;
+                        height: 0;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+
+                        border-bottom: 5px solid #000;
+                    }
+                }
+
+                button {
+                    position: relative;
+
+                    &:hover {
+                        opacity: 1;
+
+                        span {
+                            bottom: -10px;
+                            opacity: 1;
+                            pointer-events: all;
+                        }
+                    }
+
+                    .tooltip {
+                        position: absolute;
+
+                        z-index: 1000 !important;
+
+                        bottom: 0;
+                        left: 50%;
+
+                        transform: translate(-50%, 100%);
+
+                        padding: 10px;
+
+                        background-color: #000;
+
+                        border-radius: $button--radius;
+
+                        opacity: 0;
+                        pointer-events: none;
+
+                        font-size: 12px;
+                        text-align: center;
+
+                        transition: $global--transition;
+
+                        &::before {
+                            content: "";
+
+                            position: absolute;
+
+                            top: 0;
+                            left: 50%;
+
+                            transform: translate(-50%, -100%);
+
+                            background-color: transparent;
+
+                            width: 0;
+                            height: 0;
+                            border-left: 5px solid transparent;
+                            border-right: 5px solid transparent;
+
+                            border-bottom: 5px solid #000;
+                        }
+                    }
+
+                    &.file {
+                        padding: 0;
+                    }
+
+                    label {
+                        @include center;
+
+                        height: 100%;
+
+                        padding: 0 20px;
+
+                        cursor: pointer;
+                    }
+
+                    input {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .text-size {
+            @include flex(row, flex-start, flex-start, wrap);
+
+            width: 100%;
+            max-width: 150px;
+            height: var(--toolbar-height);
+
+            margin: 0 5px;
+
+            button {
+                padding: 0;
+                margin: 0;
+                width: calc(100% / 3);
+                min-height: calc(var(--toolbar-height)/2) !important;
+                max-height: calc(var(--toolbar-height)/2) !important;
+                height: calc(var(--toolbar-height)/2) !important;
+                aspect-ratio: inherit !important
+            }
+        }
+
+        .input-labled {
+            @include flex(column);
+
+            gap: 10px;
+
+            max-width: 130px;
+            width: 100%;
+
+            margin: 0 5px;
+
+            input {
+                width: 100%;
+                margin: 0;
+            }
+        }
+
+        .iconed {
+            aspect-ratio: 1/1;
+
+            padding: 0;
+
+            .row-icon,
+            .column-icon {
+                @include flex(column, center, center);
+
+                i {
+                    margin: -5px 0;
+                }
+            }
+
+            .column-icon {
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+
+    .editor {
+        @include flex(row, flex-start, flex-start, wrap);
+
+        position: relative;
+
+        overflow: hidden;
+
+        width: 100%;
+        height: calc(calc(100% - 50px) - calc(var(--action-height) + calc(var(--toolbar-height))));
+
+        background-color: $color--editor-background;
+        color: $color--body-foreground;
+
+        border-radius: $button--radius;
+    }
+
+    .actions {
+        @include flex();
+
+        gap: 10px;
+
+        height: var(--action-height);
+
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.mobile-invisible {
+    background-color: rgba(255, 0, 0, 0.5) !important;
+
+    @include devices(xl) {
+        display: none !important;
+    }
+}
+
+.modal {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+
+    &.active {
+        opacity: 1;
+    }
+}
